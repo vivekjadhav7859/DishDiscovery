@@ -1,0 +1,191 @@
+<div class="loader" *ngIf="loaderService.loaderState$ | async; else create">
+  <app-loaders></app-loaders>
+</div>
+<ng-template #create>
+  <div class="maincontainer">
+    <div class="container">
+      <form (submit)="createRecipe()" #recipeForm="ngForm">
+        <h1><b>{{ "Post a Recipe" | translate }}</b></h1>
+        <div class="form-group">
+          <label for="recipeTitle">{{ "Recipe Title" | translate }}</label>
+          <input
+            type="text"
+            class="recipetct"
+            id="recipeTitle"
+            name="recipeTitle"
+            placeholder="Enter Title For Your Recipe"
+            [(ngModel)]="recipe.recipeTitle"
+            required
+          />
+          <div
+            *ngIf="
+              recipeForm.controls['recipeTitle']?.invalid &&
+              recipeForm.controls['recipeTitle']?.touched
+            "
+            class="error-message"
+          >
+            {{ "Recipe Title is required" | translate }}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="recipeDescription">{{
+            "Recipe Description" | translate
+          }}</label>
+          <textarea
+            class="recipe-DIM"
+            id="recipeDescription"
+            placeholder="Enter Detailed Description of receipe"
+            name="recipeDescription"
+            [(ngModel)]="recipe.recipeDesc"
+            required
+          ></textarea>
+          <div
+            *ngIf="
+              recipeForm.controls['recipeDescription']?.invalid &&
+              recipeForm.controls['recipeDescription']?.touched
+            "
+            class="error-message"
+          >
+            {{ "Recipe Description is required" | translate }}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="recipeIngredients">{{
+            "Recipe Ingredients" | translate
+          }}</label>
+          <textarea
+            class="recipe-DIM"
+            id="recipeIngredients"
+            placeholder="Enlist the Ingredients"
+            name="recipeIngredients"
+            [(ngModel)]="recipe.recipeIngridents"
+            required
+          ></textarea>
+          <div
+            *ngIf="
+              recipeForm.controls['recipeIngredients']?.invalid &&
+              recipeForm.controls['recipeIngredients']?.touched
+            "
+            class="error-message"
+          >
+            {{ "Recipe Ingredients is required" | translate }}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="recipeMethod">{{ "Recipe Method" | translate }}</label>
+          <textarea
+            class="recipe-DIM"
+            id="recipeMethod"
+            placeholder="Enter the Methodology"
+            name="recipeMethod"
+            [(ngModel)]="recipe.recipeMethod"
+            required
+          ></textarea>
+          <div
+            *ngIf="
+              recipeForm.controls['recipeMethod']?.invalid &&
+              recipeForm.controls['recipeMethod']?.touched
+            "
+            class="error-message"
+          >
+            {{ "Recipe Method is required" | translate }}
+          </div>
+        </div>
+        <div class="input-group">
+          <div class="form-group">
+            <label for="cookingTime">{{ "Cooking time" | translate }}</label>
+            <input
+              class="recipetct"
+              type="text"
+              id="cookingTime"
+              placeholder="What's the Cooking Time"
+              name="cookingTime"
+              [(ngModel)]="recipe.recipeCookingTime"
+              required
+            />
+            <div
+              *ngIf="
+                recipeForm.controls['cookingTime']?.invalid &&
+                recipeForm.controls['cookingTime']?.touched
+              "
+              class="error-message"
+            >
+              {{ "Cooking Time is required" | translate }}
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="imageInput">{{ "Upload Picture" | translate }}</label>
+            <input
+              (change)="onFileSelected($event)"
+              type="file"
+              accept="image/jpeg"
+              id="imageInput"
+              name="imageInput"
+              required
+            />
+            <div
+              *ngIf="
+                recipeForm.controls['imageInput']?.invalid &&
+                recipeForm.controls['imageInput']?.touched
+              "
+              class="error-message"
+            >
+              {{ "Upload Picture is required" | translate }}
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="tags">{{ "Tags" | translate }}</label>
+            <input
+              class="recipetct"
+              type="text"
+              id="tags"
+              placeholder="Enter tags for your recipe"
+              name="tags"
+              [(ngModel)]="rawTags"
+              required
+            />
+            <div
+              *ngIf="
+                recipeForm.controls['tags']?.invalid &&
+                recipeForm.controls['tags']?.touched
+              "
+              class="error-message"
+            >
+              {{ "Tags is required" | translate }}
+            </div>
+          </div>
+        </div>
+        <button type="submit" id="publish" [disabled]="!recipeForm.form.valid">
+          {{ "Publish" | translate }}
+        </button>
+        <!-- <button type="submit" id="publish" [disabled]="!recipeForm.form.valid">
+          <div *ngIf="loaderService.loaderState$; else publishText"><app-loader2></app-loader2></div>
+          <ng-template #publishText>Publish</ng-template>
+        </button> -->
+      </form>
+    </div>
+
+    <div class="side-content">
+      <p id="see">{{ "See how others have posted" | translate }}</p>
+      <div class="loader" *ngIf="loaderService.loaderState$ | async">
+        <app-loaders></app-loaders>
+      </div>
+      <div
+        class="all-blog-container"
+        *ngFor="let recipe of recipes.slice(0, 4)"
+      >
+        <div class="recipe-image-container">
+          <img
+            (click)="goToPage('show-blog', recipe.id)"
+            class="recipe-image"
+            [src]="recipe.recipeImageUrl"
+            alt="imageOfRecipe"
+          />
+        </div>
+        <div class="recipe-details">
+          <h2>{{ getTitle(recipe.recipeTitle) }}</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

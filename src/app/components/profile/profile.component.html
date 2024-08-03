@@ -1,0 +1,23 @@
+<div class="loader" *ngIf="loaderService.loaderState$ | async">
+    <app-loaders></app-loaders>
+</div>
+<div class="parent-container">
+    <div class="main">
+        <img src="assets/profile.jpg">
+        <p>{{name}}</p>
+        <p (click)="navigateToOwnRecipes()" [class.selected]="selectedButton === 'ownRecipes'">{{'My Recipes'|translate}}</p>
+        <p (click)="navigateToLikedRecipe()" [class.selected]="selectedButton === 'likedRecipe'">{{'Liked Recipes'|translate}}</p>
+        <p (click)="navigateToSetting()" [class.selected]="selectedButton === 'settings'"><span class="icon"><i
+                    class="fas fa-cog"></i></span>{{'Settings'|translate}}</p>
+        <p (click)="logout()"><span class="icon"><i class="fas fa-sign-out-alt"></i></span>{{'Sign Out'|translate}}</p>
+    </div>
+    <div class="card-container">
+        <app-own-recipe *ngIf="showOwnRecipe"></app-own-recipe>
+    </div>
+    <div class="card-container">
+        <app-likedrecipe *ngIf="showLikedRecipe"></app-likedrecipe>
+    </div>
+    <div class="setting-container">
+        <app-setting *ngIf="showSettings"></app-setting>
+    </div>
+</div>

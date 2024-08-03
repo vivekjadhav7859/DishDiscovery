@@ -1,0 +1,40 @@
+<div class="loader" *ngIf="loaderService.loaderState$ | async">
+  <app-loaders></app-loaders>
+</div>
+<div class="maincontainer" ngxUiLoaderBlurred (blur)="500">
+  <div class="login-container">
+    <form>
+      <div class="heading">
+        <p>{{'Login'|translate}}</p>
+      </div>
+      <div class="form-group">
+        <label for="email">{{'Email address'|translate}}</label>
+        <input type="email" name="email" required placeholder="Enter your email" [(ngModel)]="user.email" />
+      </div>
+      <div class="form-group password">
+        <label for="password">{{'Password'|translate}}</label>
+        <div class="password-field">
+          <input [type]="showPassword ? 'text' : 'password'" name="password" required placeholder="Enter your password"
+            [(ngModel)]="user.password" />
+          <mat-icon matSuffix class="visibility" (click)="togglePasswordVisibility()">
+            {{showPassword?'visibility_off':'visibility'}}</mat-icon>
+        </div>
+      </div>
+      <p class="forgottext">
+        <a routerLink="/forgot-password" class="signup">{{"Forgot Password" | translate}}</a>
+      </p>
+      <div>
+        <br />
+        <button class="register" (click)="login()" type="button">{{"Login" | translate}}</button>
+      </div>
+    </form>
+    <div class="bottom">
+      <p class="notmem">
+        {{"Not a member?" | translate}}<a routerLink="/signup" class="signup">{{"SignUp" | translate}}</a>
+      </p>
+    </div>
+  </div>
+  <div class="image-container">
+    <img src="assets/register.jpg" />
+  </div>
+</div>

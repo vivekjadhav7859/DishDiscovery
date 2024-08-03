@@ -1,0 +1,101 @@
+<!-- <mat-toolbar class="nav mat-elevation-z6">
+  
+  <img src="assets/logo2.png" (click)="navigateToHome()">
+  <div class="spacer"></div>
+  <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">{{'Home'|translate}}</a>
+  <a routerLink="create" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+    *ngIf="isAuthenticated()">{{'Create Recipe'|translate}}</a>
+
+  <a routerLink="search" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+    *ngIf="isAuthenticated()">{{'Search'|translate}}</a>
+  <a routerLink="about" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">{{'About Us'|translate}}</a>
+  <a routerLink="profile" routerLinkActive="active" *ngIf="isAuthenticated()"
+    [routerLinkActiveOptions]="{ exact: true }">{{'Profile'|translate}}</a>
+  <a mat-raised-button class="nav-button" routerLink="signup" routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }" *ngIf="!isAuthenticated()">{{'SignUp'|translate}}</a>
+
+    <span class="select-lang-container">
+      <select #selectLang (change)="switchLang(selectLang.value)" >
+          <option  *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang"> {{lang}}</option>
+      </select>
+  </span>
+</mat-toolbar> -->
+
+<mat-toolbar class="nav mat-elevation-z6">
+  <img src="assets/logo2.png" (click)="navigateToHome()" />
+  <div class="spacer"></div>
+  <button class="hamburger" (click)="toggleMenu()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <div class="menu" [ngClass]="{ open: isMenuOpen }">
+    <a
+      routerLink=""
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      (click)="closemenu()"
+      >{{ "Home" | translate }}</a
+    >
+    <a
+      routerLink="create"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      *ngIf="isAuthenticated()"
+      (click)="closemenu()"
+      >{{ "Create Recipe" | translate }}</a
+    >
+    <a
+      routerLink="search"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      *ngIf="isAuthenticated()"
+      (click)="closemenu()"
+      >{{ "Search" | translate }}</a
+    >
+    <a
+      routerLink="about"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      (click)="closemenu()"
+      >{{ "About Us" | translate }}</a
+    >
+    <a
+      routerLink="profile"
+      routerLinkActive="active"
+      *ngIf="isAuthenticated()"
+      [routerLinkActiveOptions]="{ exact: true }"
+      (click)="closemenu()"
+      >{{ "Profile" | translate }}</a
+    >
+    <a
+      class="nav-button"
+      routerLink="signup"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      *ngIf="!isAuthenticated() && !isLoginPage"
+      (click)="closemenu()"
+      >{{ "SignUp" | translate }}</a
+    >
+
+    <a
+      class="nav-button"
+      routerLink="login"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      *ngIf="!isAuthenticated() && isLoginPage"
+      (click)="closemenu()"
+      >{{ "Login" | translate }}</a
+    >
+
+    <span class="select-lang-container">
+      <select #selectLang (change)="switchLang(selectLang.value)">
+        <option
+          *ngFor="let lang of translate.getLangs()"
+          [value]="lang"
+          [selected]="lang === translate.currentLang"
+        >
+          {{ lang }}
+        </option>
+      </select>
+    </span>
+  </div>
+</mat-toolbar>

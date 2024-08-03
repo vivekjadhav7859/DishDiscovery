@@ -1,0 +1,76 @@
+<section>
+  <div class="image-contanier"></div>
+  <div class="main-title">
+    <div class="title">{{ "DishDiscovery" | translate }}</div>
+    <div class="subtitle"> 
+      {{ "From Kitchen Creations to International Flavors" | translate }}
+    </div>
+  </div>
+
+  <div class="hero-container">
+    <div class="hero-content">
+      <h3>{{ "DISHDISCOVERY" | translate }}</h3>
+      <h4>
+        {{
+          "Unleashing Culinary Creativity, One Recipe at a Time!" | translate
+        }}
+      </h4>
+      <div class="hero-buttons">
+        <a
+          mat-raised-button
+          routerLink="search"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >{{ "Get All Recipes" | translate }}</a
+        >
+        <a
+          mat-raised-button
+          routerLink="create"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >{{ "Upload Your Own Recipe" | translate }}</a
+        >
+      </div>
+    </div>
+    <div class="image-slider-container">
+      <app-courosel [images]="images"></app-courosel>
+    </div>
+  </div>
+
+  <app-static-card></app-static-card>
+
+  <div class="showmore-button">
+    <a
+      mat-raised-button
+      routerLink="search"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >{{ "Explore More" | translate }}</a
+    >
+  </div>
+
+  <div class="subhero-container">
+    <div class="subhero-heading">
+      <h1>{{ "Share and Discover Amazing Recipes" | translate }}</h1>
+
+      <h3>
+        {{ "Explore a wide variety of mouth-watering recipes" | translate
+        }}{{ "shared by our community of passionate home cooks." | translate
+        }}{{
+          "From appetizers to desserts, we have something for everyone."
+            | translate
+        }}
+      </h3>
+    </div>
+    <div class="subhero-subheading">
+      <div class="slogan">{{ "Connect With Food Lovers!!" | translate }}</div>
+
+      <div class="subhero-image">
+        <img
+          src="https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=600"
+          alt="image"
+        />
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,97 @@
+<section>
+  <div class="loader" *ngIf="loaderService.loaderState$ | async; else showblog">
+    <app-loaders></app-loaders>
+  </div>
+  <ng-template #showblog>
+    <div class="hero-recipe-part">
+      <div class="bgImage">
+        <img src="../../../assets/bg-image-show-blog.png" alt="image" />
+        <div class="image-overlay"></div>
+      </div>
+      <div class="heading recipe-title">
+        {{ getRecipeTitle() }}
+      </div>
+      <div class="sub-heading">
+        {{ getRecipeDescription() }}
+      </div>
+      <div class="frontImage">
+        <img src="{{ recipe.recipeImageUrl }}" alt="frontImage" />
+      </div>
+    </div>
+    <div class="subhero">
+      <div class="subhero-recipe-part">
+        <div class="content-div">
+          <h2 class="subhero-recipe-part-heading">{{'Ingredients'|translate}} :</h2>
+          <ul>
+            <li
+              *ngFor="let ingredient of convertToArray(getRecipeIngridients())"
+            >
+              {{ ingredient }}
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="subhero-recipe-part">
+        <div class="content-div">
+          <h2 class="subhero-recipe-part-heading">{{'Method'|translate}} :</h2>
+          <ul>
+            <li *ngFor="let step of convertToArray(getRecipeMethod())">
+              {{ step }}
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="subhero-recipe-part">
+        <div class="content-div">
+          <h2 class="subhero-recipe-part-heading">{{'Estimated Time'|translate}} :</h2>
+          <p>{{ getRecipeCookingTime() }}</p>
+        </div>
+      </div>
+      <div class="subhero-recipe-part">
+        <div class="content-div">
+          <h2 class="subhero-recipe-part-heading">{{'Tags'|translate}}:</h2>
+          <p>
+            <ng-container *ngFor="let tag of recipe.tags; let isLast = last">
+              #{{ tag }}{{ isLast ? "" : ", " }}
+            </ng-container>
+          </p>
+        </div>
+      </div>
+      <div
+        class="subhero-recipe-part comment-all-section"
+        *ngIf="recipe.recipeComment && recipe.recipeComment.length > 0"
+      >
+        <h2 class="content-div comment-heading">{{'Comments'|translate}}:</h2>
+        <div class="comment-list">
+          <div
+            *ngFor="let comment of recipe.recipeComment"
+            class="comment-item"
+          >
+            <div class="user-info">
+              <img
+                src="https://t3.ftcdn.net/jpg/05/53/79/60/360_F_553796090_XHrE6R9jwmBJUMo9HKl41hyHJ5gqt9oz.jpg"
+                alt="User Icon"
+                class="user-icon"
+              />
+              <span class="username">{{ comment.username }}</span>
+            </div>
+            <p class="comment-text">{{ getRecipeComment(comment.comment) }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="comment-section">
+      <h2 class="comment-heading">{{'Comment Here'|translate}} :</h2>
+      <textarea
+        class="comment-area"
+        [rows]="textareaRows"
+        [(ngModel)]="userComment"
+        [cols]="textareaCols"
+      ></textarea>
+      <button mat-raised-button (click)="submitComment()" class="submit-button">
+        {{'Submit'|translate}}
+      </button>
+    </div>
+  </ng-template>
+</section>

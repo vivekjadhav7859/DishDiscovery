@@ -1,0 +1,45 @@
+<div class="search-container">
+  <app-search (searchTextChanged)="onSearchTextEntered($event)"></app-search>
+</div>
+<div class="loader" *ngIf="loaderService.loaderState$ | async">
+  <app-loaders></app-loaders>
+</div>
+<div class="container">
+  <div class="all-blog-container" *ngFor="let recipe of sortedRecipes()">
+    <mat-card class="card-class">
+      <img
+        mat-card-image
+        src="{{ recipe.recipeImageUrl }}"
+        alt="burger-image"
+      />
+      <mat-card-header matTooltip="{{ getTitle(recipe.recipeTitle) }}">
+        <mat-card-title class="header">
+          {{ truncateTitle(getTitle(recipe.recipeTitle)) }}
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="card-content">
+        <p>
+          {{ truncateDescription(getDescription(recipe.recipeDesc)) }}
+        </p>
+      </mat-card-content>
+      <mat-card-footer>
+        <mat-card-actions class="card-button">
+          <div class="like">
+            <button
+              mat-button
+              [ngClass]="{ 'liked-button': recipe.likeCount > 0 }"
+              (click)="onLikeClick(recipe)"
+            >
+              <span class="like-count">{{ recipe.likeCount }} </span
+              ><mat-icon class="favourite">favorite</mat-icon>
+            </button>
+          </div>
+
+          <button mat-button (click)="goToPage('show-blog', recipe.id)">
+            {{'Show More' | translate}}
+          </button>
+        </mat-card-actions>
+      </mat-card-footer>
+    </mat-card>
+  </div>
+</div>

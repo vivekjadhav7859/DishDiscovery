@@ -1,0 +1,56 @@
+<div class="loader" *ngIf="loaderService.loaderState$ | async">
+  <app-loaders></app-loaders>
+</div>
+<div class="maincontainer" ngxUiLoaderBlurred (blur)="(500)">
+  <div class="registration-container">
+    <form>
+      <div class="heading">
+        <p>{{'SignUp'|translate}}</p>
+      </div>
+      <div class="form-group" *ngIf="!isConfirmed">
+        <label for="email">{{'Name'| translate}}</label>
+        <input type="text" [(ngModel)]="user.name" name="name" required placeholder= "Enter your name" />
+      </div>
+      <div class="form-group" *ngIf="!isConfirmed">
+        <label for="email">{{'Email address' | translate}}</label>
+        <input type="email" name="email" required placeholder="Enter your email" [(ngModel)]="user.email" />
+      </div>
+      <div class="form-group" *ngIf="!isConfirmed">
+        <label for="password">{{'Password' | translate}}</label>
+       
+        <div class="password-field">
+          <input [type]="showPassword ? 'text' : 'password'" name="password" required placeholder="Enter your password"
+            [(ngModel)]="user.password" />
+          <mat-icon matSuffix class="visibility" (click)="togglePasswordVisibility()">
+            {{ showPassword ? "visibility_off" : "visibility" }}</mat-icon>
+        </div>
+      </div>
+      <div *ngIf="!isConfirmed">
+        <button class="register" (click)="signUp()" type="button">
+          {{'SignUp'| translate}}
+        </button>
+      </div>
+
+      <div *ngIf="isConfirmed">
+        <div class="verify-group">
+          <label for="password">{{'Verification Code'| translate}}</label>
+          <input name="code" [(ngModel)]="user.code" required placeholder="Enter your password" />
+        </div>
+        <div>
+          <br />
+          <button class="register" (click)="confirmSignUp()" type="button">
+            {{'Confirm' | translate}}
+          </button>
+        </div>
+      </div>
+    </form>
+    <div class="bottom">
+      <p class="alreadymem">
+        {{'Already a member?' | translate}}<a routerLink="/login" class="login">{{'Login' | translate}}</a>
+      </p>
+    </div>
+  </div>
+  <div class="image-container">
+    <img src="assets/register.jpg" />
+  </div>
+</div>

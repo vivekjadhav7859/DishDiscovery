@@ -1,0 +1,32 @@
+name: Dish Discovery Deployment
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "18.x"
+      
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Install Serverless Framework
+        run: npm install -g serverless
+      
+      - name: Configure AWS credentials
+        run: |
+          sls config credentials --provider aws --key ${{ secrets.ACCESS_KEY}} --secret ${{ secrets.SECRET_KEY }}
+      
+      - name: Deploy Serverless application
+        run: sls deploy --region ca-central-1 --stage dev

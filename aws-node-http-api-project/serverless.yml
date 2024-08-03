@@ -1,0 +1,25 @@
+service: aws-node-http-api-project
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  stage: ${opt:stage, "dev"}
+  region: ca-central-1
+  iamRoleStatements:
+    - Effect: Allow
+      Action: 
+        - "s3:*"
+        - "dynamodb:*"
+      Resource: "*"
+  httpApi:
+    cors: true
+
+
+functions:
+  sp-recipebyId:
+    handler: aws-node-http-api-project/dish-discovery-recipe-by-idHandler.handler
+    events:
+      - httpApi:
+          path: /dev/recipe/{id}
+          method: get
